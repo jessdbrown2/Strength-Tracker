@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+<title>Strength Tracker</title>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Strength" />
+<meta name="theme-color" content="#1F4A4D" />
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADrklEQVR4nO3cQW7TUBSG0RY6LAtg0oolsALmSIgpS2TKElgBS0DqhAXAECQGQcVK+6du/Px8bZ8ziiq1tq++3qSNlcvb9x8u4DEvlj4B6hIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg+iq58E+v/1zePDp28vh457nsC7LTqzf5ri/tpFfZ/GJdYrj9PXo46EKE+sRx5gr0cdQkYnNHsf4a9DHQZ2J+WuFSBxE4iBq83+Orx9vDg/efbkbPm7yw3nSTPNvsDnuz2bk12lrvvlPjeP0GehjbrPOf1IcY479+ubNlENwwpjZTunDC1IicRCJg0gcROIg6nqzzxg7f/ut1K1PtTbHzsu4KDaBWnFQijiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgqhVHqfugFlFqAuVuEyw1nZ2rtTkoRRxE4iASB5E4iCbFMeazY37cfZ9yCE4YM9spn+8zdXOcPrZPfprbrPNv8LSSzkAZfcw3/zb/BBuehyb6m2n+XpASiYNIHESzxzH+jTRvuR3UmViPzTHmGpQxVGRinZ5WTl+JMh6qMLF+rznS9SgjWXxil7fvP/Q5EqvjrxUicRAteQ/p1fWr877x96+fbc+ER3WK4+wOxv80xTQ3VxxtazjjiFqZrnEc/ZtI7s9EJWdrEEedIB41PD2hPMukOIpn8dDhhCUy0jlxrK6JI55xRnpeHGvP4ohFctqoODbWxBGLJHkijm1nccQiORLj2FUWQxK590gcu81iSCIXD994U8bQzqfxf3PsfBDJnlfIv82hjNP2OZ+rfV72GXa4Qtzs8zy7+l0Sx7NdXb/aSSLiONMe+hDH+Tbfhzgm2fZTjDga2Gof4mhjk32Io5nt9SGOljbWhzga21If4mhvM32IYxbb6EMcc9lAH+KY0dr7EMe8Vt2HOGa33j7E0cNK+xBHJ2vsQxxE4uhndctDHF2tqw9x9LaiPsRBJI4FrGV5iGMZq+hDHETiWEz95SGOJRXvQxxE4lhY5eUhjuWV7UMcROIooebyEAeROKoouDzEQSSOQqotD3EQiYNIHLWUemYRB5E4yqmzPMRBJA6iv58UsDK3hFt9AAAAAElFTkSuQmCC" />
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADrklEQVR4nO3cQW7TUBSG0RY6LAtg0oolsALmSIgpS2TKElgBS0DqhAXAECQGQcVK+6du/Px8bZ8ziiq1tq++3qSNlcvb9x8u4DEvlj4B6hIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg+iq58E+v/1zePDp28vh457nsC7LTqzf5ri/tpFfZ/GJdYrj9PXo46EKE+sRx5gr0cdQkYnNHsf4a9DHQZ2J+WuFSBxE4iBq83+Orx9vDg/efbkbPm7yw3nSTPNvsDnuz2bk12lrvvlPjeP0GehjbrPOf1IcY479+ubNlENwwpjZTunDC1IicRCJg0gcROIg6nqzzxg7f/ut1K1PtTbHzsu4KDaBWnFQijiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgqhVHqfugFlFqAuVuEyw1nZ2rtTkoRRxE4iASB5E4iCbFMeazY37cfZ9yCE4YM9spn+8zdXOcPrZPfprbrPNv8LSSzkAZfcw3/zb/BBuehyb6m2n+XpASiYNIHESzxzH+jTRvuR3UmViPzTHmGpQxVGRinZ5WTl+JMh6qMLF+rznS9SgjWXxil7fvP/Q5EqvjrxUicRAteQ/p1fWr877x96+fbc+ER3WK4+wOxv80xTQ3VxxtazjjiFqZrnEc/ZtI7s9EJWdrEEedIB41PD2hPMukOIpn8dDhhCUy0jlxrK6JI55xRnpeHGvP4ohFctqoODbWxBGLJHkijm1nccQiORLj2FUWQxK590gcu81iSCIXD994U8bQzqfxf3PsfBDJnlfIv82hjNP2OZ+rfV72GXa4Qtzs8zy7+l0Sx7NdXb/aSSLiONMe+hDH+Tbfhzgm2fZTjDga2Gof4mhjk32Io5nt9SGOljbWhzga21If4mhvM32IYxbb6EMcc9lAH+KY0dr7EMe8Vt2HOGa33j7E0cNK+xBHJ2vsQxxE4uhndctDHF2tqw9x9LaiPsRBJI4FrGV5iGMZq+hDHETiWEz95SGOJRXvQxxE4lhY5eUhjuWV7UMcROIooebyEAeROKoouDzEQSSOQqotD3EQiYNIHLWUemYRB5E4yqmzPMRBJA6iv58UsDK3hFt9AAAAAElFTkSuQmCC" />
+<style>
+  * { -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; background: #F7F3EC; overscroll-behavior: none; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  input, select, textarea, button { font-family: inherit; }
+  button { cursor: pointer; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: #C77B4A !important; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const C = { ink:"#1F4A4D", ink2:"#2F5D62", clay:"#C77B4A", clayDk:"#A65F33", sage:"#6E8E80",
+  bg:"#F7F3EC", card:"#FFFFFF", line:"#E4DCCD", flag:"#FBE9DD", flagTxt:"#9A4B22", good:"#2E7D52", mut:"#7C766B" };
+
+// ---- storage: localStorage on a hosted page, memory fallback in previews ----
+const mem = {};
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch(e){ return (k in mem) ? mem[k] : null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch(e){ mem[k]=v; } },
+};
+const parse = (s,d)=>{ try { return s ? JSON.parse(s) : d; } catch { return d; } };
+
+// ---- icons ----
+const Svg = ({children,size=24,sw=1.9}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">{children}</svg>
+);
+const Icon = {
+  Home:(p)=><Svg {...p}><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></Svg>,
+  Dumbbell:(p)=><Svg {...p}><path d="M6.5 6.5v11M3.5 9v6M17.5 6.5v11M20.5 9v6M6.5 12h11"/></Svg>,
+  Ruler:(p)=><Svg {...p}><path d="M4 16L16 4l4 4L8 20z"/><path d="M9 9l1.4 1.4M12 6l1.4 1.4M6 12l1.4 1.4"/></Svg>,
+  Plan:(p)=><Svg {...p}><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9.5 4V3h5v1"/><path d="M9 10h6M9 14h6M9 18h4"/></Svg>,
+  Plus:(p)=><Svg {...p}><path d="M12 5v14M5 12h14"/></Svg>,
+  Check:(p)=><Svg {...p}><path d="M5 12l5 5L19 7"/></Svg>,
+  Trash:(p)=><Svg {...p}><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/></Svg>,
+  Camera:(p)=><Svg {...p}><path d="M3 8h4l2-2h6l2 2h4v12H3z"/><circle cx="12" cy="13" r="3.4"/></Svg>,
+  Chevron:(p)=><Svg {...p}><path d="M9 6l6 6-6 6"/></Svg>,
+};
+
+const EXERCISES = ["Glute bridge / hip thrust","Banded clamshells","Banded lateral walks","Step-ups","Romanian deadlift","Chair sit-to-stands","Wall push-ups","Band rows","Band curls","Walk"];
+const PROTEIN_GOAL = 130;
+const PROTEIN_PRESETS = [["Protein shake",30],["Core Power Elite",42],["Greek yogurt",18],["Chicken",25],["Tuna pouch",18],["Turkey wrap",20],["Cottage cheese",18],["Egg",6],["String cheese",7],["Protein bar",20]];
+
+const todayStr = () => new Date().toISOString().slice(0,10);
+const uid = () => Math.random().toString(36).slice(2,9);
+const fmtDate = (s)=>{ try { return new Date(s+"T00:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}); } catch { return s; } };
+const workoutDetail = (w)=> w.exercise==="Walk"
+  ? ([w.steps?`${w.steps} steps`:null, w.duration?`${w.duration} min`:null, w.calories?`${w.calories} cal`:null].filter(Boolean).join(" · ")||"Walk")
+  : `${w.sets?`${w.sets} × ${w.reps}`:w.reps}${w.resistance?` · ${w.resistance}`:""}${w.felt?` · felt ${w.felt}/5`:""}`;
+
+const inputStyle = { width:"100%", padding:"11px 12px", borderRadius:12, border:`1px solid ${C.line}`, background:"#FCFAF5", fontSize:16, color:C.ink, boxSizing:"border-box" };
+
+const Header = ({kicker,title}) => (
+  <div style={{padding:"calc(env(safe-area-inset-top) + 26px) 20px 10px"}}>
+    {kicker && <div style={{fontSize:12,letterSpacing:1.5,textTransform:"uppercase",color:C.clay,fontWeight:700}}>{kicker}</div>}
+    <div style={{fontFamily:"Georgia, 'Times New Roman', serif",fontSize:28,lineHeight:1.1,marginTop:4,color:C.ink}}>{title}</div>
+  </div>
+);
+const Card = ({children,style}) => (
+  <div style={{background:C.card,border:`1px solid ${C.line}`,borderRadius:18,padding:16,...style}}>{children}</div>
+);
+const Field = ({label,children}) => (
+  <label style={{display:"block",marginBottom:12}}>
+    <span style={{fontSize:12,color:C.mut,fontWeight:600}}>{label}</span>
+    <div style={{marginTop:4}}>{children}</div>
+  </label>
+);
+const Btn = ({children,onClick,kind="primary",style}) => {
+  const k = { primary:{background:C.clay,color:"#fff",border:"none"}, ghost:{background:"transparent",color:C.ink,border:`1px solid ${C.line}`} };
+  return <button onClick={onClick} style={{padding:"13px 16px",borderRadius:12,fontSize:15,fontWeight:700,width:"100%",...k[kind],...style}}>{children}</button>;
+};
+
+function App(){
+  const [tab,setTab] = useState("home");
+  const [workouts,setWorkouts] = useState(()=>parse(store.get("jess_workouts"),[]));
+  const [measures,setMeasures] = useState(()=>parse(store.get("jess_measures"),[]));
+  const [photos,setPhotos] = useState(()=>parse(store.get("jess_photos"),[]));
+  const [checkins,setCheckins] = useState(()=>parse(store.get("jess_checkins"),[]));
+  const [protein,setProtein] = useState(()=>parse(store.get("jess_protein"),[]));
+  const [showExport,setShowExport] = useState(false);
+
+  const saveWorkouts=(n)=>{setWorkouts(n);store.set("jess_workouts",JSON.stringify(n));};
+  const saveMeasures=(n)=>{setMeasures(n);store.set("jess_measures",JSON.stringify(n));};
+  const savePhotos=(n)=>{setPhotos(n);store.set("jess_photos",JSON.stringify(n));};
+  const saveCheckins=(n)=>{setCheckins(n);store.set("jess_checkins",JSON.stringify(n));};
+  const saveProtein=(n)=>{setProtein(n);store.set("jess_protein",JSON.stringify(n));};
+
+  const tabs=[["home","Home",Icon.Home],["workout","Workout",Icon.Dumbbell],["body","Body",Icon.Ruler],["plan","Plan",Icon.Plan]];
+
+  return (
+    <div style={{background:C.bg,color:C.ink,minHeight:"100vh"}}>
+      <div style={{maxWidth:480,margin:"0 auto",paddingBottom:"calc(env(safe-area-inset-bottom) + 92px)"}}>
+        {tab==="home" && <HomeTab {...{workouts,measures,checkins,saveCheckins,protein,saveProtein,setTab}} />}
+        {tab==="workout" && <WorkoutTab {...{workouts,saveWorkouts}} />}
+        {tab==="body" && <BodyTab {...{measures,saveMeasures,photos,savePhotos}} />}
+        {tab==="plan" && <PlanTab setShowExport={setShowExport} />}
+        {showExport && <ExportModal {...{workouts,measures,photos,protein,checkins,onClose:()=>setShowExport(false)}} />}
+      </div>
+      <div style={{position:"fixed",bottom:0,left:0,right:0,borderTop:`1px solid ${C.line}`,background:"rgba(255,255,255,0.94)",backdropFilter:"blur(8px)",paddingBottom:"env(safe-area-inset-bottom)"}}>
+        <div style={{maxWidth:480,margin:"0 auto",display:"flex"}}>
+          {tabs.map(([id,label,I])=>{
+            const on=tab===id;
+            return <button key={id} onClick={()=>setTab(id)} style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",background:"none",border:"none",padding:"10px 0 14px",color:on?C.clay:C.mut}}>
+              <I size={22} sw={on?2.4:1.8} />
+              <span style={{fontSize:11,marginTop:3,fontWeight:on?700:500}}>{label}</span>
+            </button>;
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function HomeTab({workouts,measures,checkins,saveCheckins,protein,saveProtein,setTab}){
+  const sorted=[...measures].sort((a,b)=>a.date.localeCompare(b.date));
+  const baseline=sorted[0], latest=sorted[sorted.length-1];
+  const wChange=(baseline&&latest&&baseline.weight!=null&&latest.weight!=null)?(latest.weight-baseline.weight):null;
+  const weekAgo=new Date();weekAgo.setDate(weekAgo.getDate()-7);
+  const sessions=new Set(workouts.filter(w=>w.exercise!=="Walk"&&new Date(w.date+"T00:00:00")>=weekAgo).map(w=>w.date)).size;
+  const [energy,setEnergy]=useState(0);const [win,setWin]=useState("");const [saved,setSaved]=useState(false);
+  const logCheckin=()=>{saveCheckins([{id:uid(),weekStart:todayStr(),sessions,energy,win},...checkins]);setEnergy(0);setWin("");setSaved(true);setTimeout(()=>setSaved(false),2200);};
+  const hour=new Date().getHours();
+  const greet=hour<12?"Good morning":hour<18?"Good afternoon":"Good evening";
+
+  return (
+    <div>
+      <Header kicker={greet+", Jessica"} title="Today's the day you show up." />
+      <div style={{padding:"8px 16px 0"}}>
+        <Card style={{background:C.ink,border:"none",color:"#fff"}}>
+          <div style={{display:"flex",gap:16}}>
+            <div style={{flex:1}}>
+              <div style={{fontSize:12,color:"#BFD6CF",fontWeight:600}}>Current weight</div>
+              <div style={{fontFamily:"Georgia,serif",fontSize:38,lineHeight:1}}>{latest&&latest.weight!=null?latest.weight:"—"}<span style={{fontSize:15,color:"#BFD6CF"}}> lb</span></div>
+              {wChange!=null && <div style={{fontSize:13,marginTop:4,color:"#BFD6CF"}}>{wChange===0?"Holding steady":`${wChange>0?"+":""}${wChange.toFixed(1)} lb from baseline`}</div>}
+            </div>
+            <div style={{width:1,background:"rgba(255,255,255,0.18)"}} />
+            <div style={{flex:1}}>
+              <div style={{fontSize:12,color:"#BFD6CF",fontWeight:600}}>This week</div>
+              <div style={{fontFamily:"Georgia,serif",fontSize:38,lineHeight:1}}>{sessions}<span style={{fontSize:15,color:"#BFD6CF"}}> / 3</span></div>
+              <div style={{fontSize:13,marginTop:4,color:"#BFD6CF"}}>{sessions>=3?"Goal hit 🎉":sessions===0?"Let's get one in":"Keep going"}</div>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <ProteinCard protein={protein} saveProtein={saveProtein} />
+
+      <div style={{padding:"14px 16px 0"}}>
+        <Btn onClick={()=>setTab("workout")}><span style={{display:"inline-flex",alignItems:"center"}}><Icon.Plus size={18} /><span style={{marginLeft:6}}>Log today's workout</span></span></Btn>
+      </div>
+
+      <div style={{padding:"18px 16px 0"}}>
+        <div style={{fontSize:13,fontWeight:700,color:C.mut,marginBottom:8}}>RECENT</div>
+        {workouts.length===0 ? (
+          <Card><div style={{color:C.mut,fontSize:14}}>No workouts logged yet. Your first one is the starting gun.</div></Card>
+        ) : (
+          <Card style={{padding:0}}>
+            {workouts.slice(0,5).map((w,i)=>(
+              <div key={w.id} style={{display:"flex",alignItems:"center",padding:"12px 16px",borderTop:i?`1px solid ${C.line}`:"none"}}>
+                <div style={{flex:1}}><div style={{fontSize:15,fontWeight:600}}>{w.exercise}</div><div style={{fontSize:12,color:C.mut}}>{workoutDetail(w)}</div></div>
+                <div style={{fontSize:12,color:C.mut}}>{fmtDate(w.date)}</div>
+              </div>
+            ))}
+          </Card>
+        )}
+      </div>
+
+      <div style={{padding:"18px 16px 24px"}}>
+        <div style={{fontSize:13,fontWeight:700,color:C.mut,marginBottom:8}}>WEEKLY CHECK-IN</div>
+        <Card>
+          <Field label="Energy this week">
+            <div style={{display:"flex",gap:8}}>{[1,2,3,4,5].map(n=>(<button key={n} onClick={()=>setEnergy(n)} style={{flex:1,padding:"10px 0",borderRadius:10,border:`1px solid ${energy===n?C.clay:C.line}`,background:energy===n?C.clay:"#FCFAF5",color:energy===n?"#fff":C.ink,fontWeight:700}}>{n}</button>))}</div>
+          </Field>
+          <Field label="Win of the week"><input style={inputStyle} value={win} onChange={e=>setWin(e.target.value)} placeholder="One good thing…" /></Field>
+          <Btn onClick={logCheckin} kind={saved?"ghost":"primary"}>{saved?<span style={{color:C.good}}>Saved ✓</span>:"Save check-in"}</Btn>
+          <div style={{fontSize:12,color:C.mut,marginTop:8}}>Sessions auto-count from logged workouts: <b>{sessions}/3</b> this week.</div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function ProteinCard({protein,saveProtein}){
+  const t=todayStr();
+  const today=protein.filter(p=>p.date===t);
+  const total=today.reduce((s,p)=>s+(Number(p.grams)||0),0);
+  const pct=Math.min(100,Math.round((total/PROTEIN_GOAL)*100));
+  const [custom,setCustom]=useState("");const [customLbl,setCustomLbl]=useState("");
+  const add=(label,grams)=>{ if(!grams)return; saveProtein([{id:uid(),date:t,grams:Number(grams),label},...protein]); };
+  const addCustom=()=>{const g=parseFloat(custom); if(!g)return; add(customLbl||"Custom",g); setCustom("");setCustomLbl("");};
+  const remove=(id)=>saveProtein(protein.filter(p=>p.id!==id));
+  const hit=total>=PROTEIN_GOAL;
+  return (
+    <div style={{padding:"14px 16px 0"}}>
+      <Card>
+        <div style={{display:"flex",alignItems:"flex-end",marginBottom:10}}>
+          <div style={{flex:1}}>
+            <div style={{fontSize:13,fontWeight:700,color:C.mut}}>PROTEIN TODAY</div>
+            <div style={{fontFamily:"Georgia,serif",fontSize:34,lineHeight:1,marginTop:2,color:hit?C.good:C.ink}}>{total}<span style={{fontSize:15,color:C.mut}}> / {PROTEIN_GOAL}g</span></div>
+          </div>
+          {hit && <div style={{fontSize:13,color:C.good,fontWeight:700}}>Goal hit 💪</div>}
+        </div>
+        <div style={{height:10,background:"#EFE8DA",borderRadius:99,overflow:"hidden"}}><div style={{width:pct+"%",height:"100%",background:hit?C.good:C.clay,borderRadius:99,transition:"width .3s"}} /></div>
+        <div style={{display:"flex",flexWrap:"wrap",gap:7,marginTop:12}}>
+          {PROTEIN_PRESETS.map(([lbl,g])=>(<button key={lbl} onClick={()=>add(lbl,g)} style={{padding:"7px 11px",borderRadius:99,border:`1px solid ${C.line}`,background:"#FCFAF5",fontSize:12.5,fontWeight:600,color:C.ink}}>{lbl} <span style={{color:C.clay,fontWeight:700}}>+{g}</span></button>))}
+        </div>
+        <div style={{display:"flex",gap:8,marginTop:12}}>
+          <input style={{...inputStyle,flex:2}} value={customLbl} onChange={e=>setCustomLbl(e.target.value)} placeholder="Custom item (optional)" />
+          <input style={{...inputStyle,flex:1}} inputMode="numeric" value={custom} onChange={e=>setCustom(e.target.value)} placeholder="g" />
+          <button onClick={addCustom} style={{padding:"0 16px",borderRadius:12,background:C.clay,color:"#fff",fontWeight:800,fontSize:18,border:"none"}}>+</button>
+        </div>
+        {today.length>0 && (
+          <div style={{marginTop:12,borderTop:`1px solid ${C.line}`,paddingTop:8}}>
+            {today.map(p=>(<div key={p.id} style={{display:"flex",alignItems:"center",padding:"5px 0"}}><div style={{flex:1,fontSize:13.5}}>{p.label}</div><div style={{fontSize:13.5,fontWeight:700,marginRight:10}}>{p.grams}g</div><button onClick={()=>remove(p.id)} style={{color:C.mut,background:"none",border:"none",padding:2}}><Icon.Trash size={14} /></button></div>))}
+          </div>
+        )}
+      </Card>
+    </div>
+  );
+}
+
+function WorkoutTab({workouts,saveWorkouts}){
+  const [open,setOpen]=useState(false);
+  const [ex,setEx]=useState(EXERCISES[0]);const [sets,setSets]=useState("");const [reps,setReps]=useState("");
+  const [resistance,setResistance]=useState("");const [felt,setFelt]=useState(0);
+  const [steps,setSteps]=useState("");const [duration,setDuration]=useState("");const [calories,setCalories]=useState("");
+  const [date,setDate]=useState(todayStr());
+  const isWalk = ex==="Walk";
+  const reset=()=>{setSets("");setReps("");setResistance("");setFelt(0);setSteps("");setDuration("");setCalories("");setOpen(false);};
+  const add=()=>{
+    if(isWalk){ if(!steps&&!duration&&!calories)return; saveWorkouts([{id:uid(),date,exercise:ex,steps,duration,calories},...workouts]); }
+    else { if(!reps&&!sets)return; saveWorkouts([{id:uid(),date,exercise:ex,sets,reps,resistance,felt},...workouts]); }
+    reset();
+  };
+  const remove=(id)=>saveWorkouts(workouts.filter(w=>w.id!==id));
+  const groups={};[...workouts].forEach(w=>{(groups[w.date]=groups[w.date]||[]).push(w);});
+  const dates=Object.keys(groups).sort((a,b)=>b.localeCompare(a));
+  return (
+    <div>
+      <Header kicker="Log" title="Workout" />
+      <div style={{padding:"4px 16px 0"}}>
+        {!open ? <Btn onClick={()=>setOpen(true)}><span style={{display:"inline-flex",alignItems:"center"}}><Icon.Plus size={18} /><span style={{marginLeft:6}}>Add an exercise</span></span></Btn> : (
+          <Card>
+            <Field label="Exercise"><select style={{...inputStyle,appearance:"none"}} value={ex} onChange={e=>setEx(e.target.value)}>{EXERCISES.map(x=><option key={x}>{x}</option>)}</select></Field>
+            {isWalk ? (
+              <>
+                <div style={{display:"flex",gap:10}}>
+                  <div style={{flex:1}}><Field label="Steps"><input style={inputStyle} inputMode="numeric" value={steps} onChange={e=>setSteps(e.target.value)} placeholder="2500" /></Field></div>
+                  <div style={{flex:1}}><Field label="Duration (min)"><input style={inputStyle} inputMode="numeric" value={duration} onChange={e=>setDuration(e.target.value)} placeholder="20" /></Field></div>
+                </div>
+                <Field label="Calories burned"><input style={inputStyle} inputMode="numeric" value={calories} onChange={e=>setCalories(e.target.value)} placeholder="120" /></Field>
+                <div style={{fontSize:11,color:C.mut,marginTop:-4,marginBottom:12}}>Tip: pull these from Apple Health — ask Claude "how are my walks?" anytime.</div>
+              </>
+            ) : (
+              <>
+                <div style={{display:"flex",gap:10}}>
+                  <div style={{flex:1}}><Field label="Sets"><input style={inputStyle} inputMode="numeric" value={sets} onChange={e=>setSets(e.target.value)} placeholder="2" /></Field></div>
+                  <div style={{flex:1}}><Field label="Reps"><input style={inputStyle} value={reps} onChange={e=>setReps(e.target.value)} placeholder="12 or 10/side" /></Field></div>
+                </div>
+                <Field label="Resistance / band"><input style={inputStyle} value={resistance} onChange={e=>setResistance(e.target.value)} placeholder="Bodyweight, light band, kettlebell…" /></Field>
+                <Field label="How it felt">
+                  <div style={{display:"flex",gap:8}}>{[1,2,3,4,5].map(n=>(<button key={n} onClick={()=>setFelt(n)} style={{flex:1,padding:"10px 0",borderRadius:10,border:`1px solid ${felt===n?C.clay:C.line}`,background:felt===n?C.clay:"#FCFAF5",color:felt===n?"#fff":C.ink,fontWeight:700}}>{n}</button>))}</div>
+                  <div style={{fontSize:11,color:C.mut,marginTop:4}}>1 = easy · 5 = very hard. A 1–2 for two sessions → add reps or resistance.</div>
+                </Field>
+              </>
+            )}
+            <Field label="Date"><input type="date" style={inputStyle} value={date} onChange={e=>setDate(e.target.value)} /></Field>
+            <div style={{display:"flex",gap:10}}><Btn kind="ghost" onClick={reset} style={{flex:1}}>Cancel</Btn><Btn onClick={add} style={{flex:1}}>Save</Btn></div>
+          </Card>
+        )}
+      </div>
+      <div style={{padding:"18px 16px 24px"}}>
+        {dates.length===0 && <div style={{color:C.mut,fontSize:14,paddingTop:8}}>Nothing logged yet. Glutes go first — start with hip thrusts.</div>}
+        {dates.map(d=>(
+          <div key={d} style={{marginBottom:18}}>
+            <div style={{fontSize:13,fontWeight:700,marginBottom:8}}>{new Date(d+"T00:00:00").toLocaleDateString(undefined,{weekday:"long",month:"short",day:"numeric"})}</div>
+            <Card style={{padding:0}}>
+              {groups[d].map((w,i)=>(<div key={w.id} style={{display:"flex",alignItems:"center",padding:"12px 14px",borderTop:i?`1px solid ${C.line}`:"none"}}>
+                <div style={{flex:1}}><div style={{fontSize:15,fontWeight:600}}>{w.exercise}</div><div style={{fontSize:12,color:C.mut}}>{workoutDetail(w)}</div></div>
+                <button onClick={()=>remove(w.id)} style={{color:C.mut,background:"none",border:"none",padding:6}}><Icon.Trash size={16} /></button>
+              </div>))}
+            </Card>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const MEAS_FIELDS=[["weight","Weight (lb)"],["bust","Bust"],["underbust","Under-bust"],["waist","Waist @ navel"],["lowerBelly","Lower belly"],["hips","Hips / glutes"],["lThigh","L thigh"],["rThigh","R thigh"],["lArm","L arm"],["rArm","R arm"]];
+
+function BodyTab({measures,saveMeasures,photos,savePhotos}){
+  const [openM,setOpenM]=useState(false);const [form,setForm]=useState({date:todayStr()});
+  const [openP,setOpenP]=useState(false);const [pform,setPform]=useState({date:todayStr(),front:false,side:false,back:false});
+  const sorted=[...measures].sort((a,b)=>a.date.localeCompare(b.date));
+  const baseline=sorted[0],latest=sorted[sorted.length-1];
+  const addM=()=>{const clean={...form,id:uid()};MEAS_FIELDS.forEach(([k])=>{clean[k]=(form[k]===""||form[k]==null)?null:parseFloat(form[k]);});saveMeasures([...measures,clean].sort((a,b)=>b.date.localeCompare(a.date)));setForm({date:todayStr()});setOpenM(false);};
+  const addP=()=>{savePhotos([{...pform,id:uid()},...photos]);setPform({date:todayStr(),front:false,side:false,back:false});setOpenP(false);};
+  const delta=(k)=>{ if(!baseline||!latest||baseline[k]==null||latest[k]==null)return null; return latest[k]-baseline[k]; };
+  return (
+    <div>
+      <Header kicker="Measure & document" title="Body" />
+      {sorted.length>=2 && (
+        <div style={{padding:"4px 16px 0"}}>
+          <Card>
+            <div style={{fontSize:13,fontWeight:700,color:C.mut,marginBottom:10}}>SINCE BASELINE ({fmtDate(baseline.date)})</div>
+            <div style={{display:"flex",flexWrap:"wrap",gap:10}}>
+              {MEAS_FIELDS.map(([k,lbl])=>{const d=delta(k);if(d==null)return null;const down=d<0;return (<div key={k} style={{width:"calc(50% - 5px)",background:"#FCFAF5",border:`1px solid ${C.line}`,borderRadius:12,padding:"8px 10px"}}><div style={{fontSize:11,color:C.mut}}>{lbl}</div><div style={{fontSize:16,fontWeight:700,color:down?C.good:C.ink}}>{d>0?"+":""}{d.toFixed(1)}</div></div>);})}
+            </div>
+            <div style={{fontSize:11,color:C.mut,marginTop:10}}>Inches can stall as muscle replaces fat — that's progress too. Trust the photos.</div>
+          </Card>
+        </div>
+      )}
+      <div style={{padding:"16px 16px 0"}}>
+        <div style={{fontSize:13,fontWeight:700,color:C.mut,marginBottom:8}}>MEASUREMENTS</div>
+        {!openM ? <Btn kind="ghost" onClick={()=>setOpenM(true)}><span style={{display:"inline-flex",alignItems:"center"}}><Icon.Plus size={16} /><span style={{marginLeft:6}}>New measurement entry</span></span></Btn> : (
+          <Card>
+            <Field label="Date"><input type="date" style={inputStyle} value={form.date} onChange={e=>setForm({...form,date:e.target.value})} /></Field>
+            <div style={{display:"flex",flexWrap:"wrap",gap:10}}>{MEAS_FIELDS.map(([k,lbl])=>(<div key={k} style={{width:"calc(50% - 5px)"}}><Field label={lbl}><input style={inputStyle} inputMode="decimal" value={form[k]||""} onChange={e=>setForm({...form,[k]:e.target.value})} /></Field></div>))}</div>
+            <div style={{display:"flex",gap:10}}><Btn kind="ghost" onClick={()=>setOpenM(false)} style={{flex:1}}>Cancel</Btn><Btn onClick={addM} style={{flex:1}}>Save</Btn></div>
+          </Card>
+        )}
+        {sorted.length>0 && (
+          <Card style={{padding:0,marginTop:12}}>
+            {[...measures].sort((a,b)=>b.date.localeCompare(a.date)).map((m,i)=>(<div key={m.id} style={{display:"flex",alignItems:"center",padding:"12px 14px",borderTop:i?`1px solid ${C.line}`:"none"}}>
+              <div style={{flex:1}}><div style={{fontSize:15,fontWeight:600}}>{m.weight!=null?`${m.weight} lb`:"Entry"}</div><div style={{fontSize:12,color:C.mut}}>{m.waist!=null?`waist ${m.waist}″ · `:""}{m.hips!=null?`hips ${m.hips}″`:""}</div></div>
+              <div style={{fontSize:12,color:C.mut}}>{fmtDate(m.date)}</div>
+            </div>))}
+          </Card>
+        )}
+      </div>
+      <div style={{padding:"20px 16px 24px"}}>
+        <div style={{fontSize:13,fontWeight:700,color:C.mut,marginBottom:8}}>PHOTO LOG</div>
+        <Card style={{background:C.flag,border:"none",marginBottom:10}}>
+          <div style={{display:"flex",gap:10}}><span style={{color:C.flagTxt,flexShrink:0,marginTop:2}}><Icon.Camera size={18} /></span><div style={{fontSize:12.5,color:C.flagTxt,lineHeight:1.5}}>Keep the actual photos in a dedicated album in your Photos app. Same 3 angles (front, side, back), fitted clothes, same spot & morning light, relaxed. Log the date here for the record.</div></div>
+        </Card>
+        {!openP ? <Btn kind="ghost" onClick={()=>setOpenP(true)}><span style={{display:"inline-flex",alignItems:"center"}}><Icon.Plus size={16} /><span style={{marginLeft:6}}>Log photo date</span></span></Btn> : (
+          <Card>
+            <Field label="Date"><input type="date" style={inputStyle} value={pform.date} onChange={e=>setPform({...pform,date:e.target.value})} /></Field>
+            <div style={{display:"flex",gap:8,marginBottom:12}}>{[["front","Front"],["side","Side"],["back","Back"]].map(([k,lbl])=>(<button key={k} onClick={()=>setPform({...pform,[k]:!pform[k]})} style={{flex:1,padding:"12px 0",borderRadius:10,border:`1px solid ${pform[k]?C.clay:C.line}`,background:pform[k]?C.clay:"#FCFAF5",color:pform[k]?"#fff":C.ink,fontWeight:700,fontSize:13}}>{pform[k]?"✓ ":""}{lbl}</button>))}</div>
+            <div style={{display:"flex",gap:10}}><Btn kind="ghost" onClick={()=>setOpenP(false)} style={{flex:1}}>Cancel</Btn><Btn onClick={addP} style={{flex:1}}>Save</Btn></div>
+          </Card>
+        )}
+        {photos.length>0 && (
+          <Card style={{padding:0,marginTop:12}}>
+            {photos.map((p,i)=>(<div key={p.id} style={{display:"flex",alignItems:"center",padding:"12px 14px",borderTop:i?`1px solid ${C.line}`:"none"}}><div style={{flex:1,fontSize:14}}>{["front","side","back"].filter(k=>p[k]).map(k=>k[0].toUpperCase()+k.slice(1)).join(" · ")||"Logged"}</div><div style={{fontSize:12,color:C.mut}}>{fmtDate(p.date)}</div></div>))}
+          </Card>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ExportModal({workouts,measures,photos,protein,checkins,onClose}){
+  const [which,setWhich]=useState("workouts");const [copied,setCopied]=useState(false);
+  const yn=(b)=>b?"Yes":"";const v=(x)=>x==null?"":x;
+  const builders={
+    workouts:()=>{const r=[["Date","Exercise","Sets","Reps","Resistance","Felt(1-5)","Steps","Duration(min)","Calories"]];[...workouts].sort((a,b)=>a.date.localeCompare(b.date)).forEach(w=>r.push([w.date,w.exercise,v(w.sets),v(w.reps),v(w.resistance),v(w.felt),v(w.steps),v(w.duration),v(w.calories)]));return r;},
+    measurements:()=>{const r=[["Date","Weight","Bust","Under-bust","Waist","Lower belly","Hips/glutes","L Thigh","R Thigh","L Arm","R Arm"]];[...measures].sort((a,b)=>a.date.localeCompare(b.date)).forEach(m=>r.push([m.date,v(m.weight),v(m.bust),v(m.underbust),v(m.waist),v(m.lowerBelly),v(m.hips),v(m.lThigh),v(m.rThigh),v(m.lArm),v(m.rArm)]));return r;},
+    protein:()=>{const r=[["Date","Grams","Item"]];[...protein].sort((a,b)=>a.date.localeCompare(b.date)).forEach(p=>r.push([p.date,v(p.grams),v(p.label)]));return r;},
+    photos:()=>{const r=[["Date","Front","Side","Back"]];[...photos].sort((a,b)=>a.date.localeCompare(b.date)).forEach(p=>r.push([p.date,yn(p.front),yn(p.side),yn(p.back)]));return r;},
+    checkins:()=>{const r=[["Week","Sessions","Energy","Win"]];[...checkins].sort((a,b)=>a.weekStart.localeCompare(b.weekStart)).forEach(c=>r.push([c.weekStart,v(c.sessions),v(c.energy),v(c.win)]));return r;},
+  };
+  const tsv=builders[which]().map(r=>r.join("\t")).join("\n");
+  const copy=async()=>{ try { await navigator.clipboard.writeText(tsv); setCopied(true); setTimeout(()=>setCopied(false),2000); } catch { setCopied(false); } };
+  const tabs=[["workouts","Workouts"],["measurements","Body"],["protein","Protein"],["photos","Photos"],["checkins","Check-ins"]];
+  return (
+    <div style={{position:"fixed",inset:0,display:"flex",alignItems:"flex-end",background:"rgba(31,74,77,0.45)",zIndex:50}} onClick={onClose}>
+      <div onClick={e=>e.stopPropagation()} style={{background:C.bg,width:"100%",maxWidth:480,margin:"0 auto",borderTopLeftRadius:22,borderTopRightRadius:22,padding:18,maxHeight:"88vh",overflowY:"auto"}}>
+        <div style={{display:"flex",alignItems:"center",marginBottom:6}}><div style={{flex:1,fontFamily:"Georgia,serif",fontSize:22}}>Back up to your Sheet</div><button onClick={onClose} style={{color:C.mut,background:"none",border:"none",fontSize:15,fontWeight:700}}>Done</button></div>
+        <div style={{fontSize:12.5,color:C.mut,lineHeight:1.5,marginBottom:12}}>Pick a section, tap Copy, then in Google Sheets tap a cell on the matching tab and paste. It fills across columns automatically.</div>
+        <div style={{display:"flex",flexWrap:"wrap",gap:7,marginBottom:12}}>{tabs.map(([id,lbl])=>(<button key={id} onClick={()=>setWhich(id)} style={{padding:"7px 13px",borderRadius:99,border:`1px solid ${which===id?C.clay:C.line}`,background:which===id?C.clay:"#FCFAF5",color:which===id?"#fff":C.ink,fontWeight:700,fontSize:13}}>{lbl}</button>))}</div>
+        <Btn onClick={copy} kind={copied?"ghost":"primary"} style={{marginBottom:10}}>{copied?<span style={{color:C.good}}>Copied — now paste into Sheets ✓</span>:"Copy this section"}</Btn>
+        <textarea readOnly value={tsv} onFocus={e=>e.target.select()} style={{width:"100%",height:180,padding:12,borderRadius:12,border:`1px solid ${C.line}`,background:"#FCFAF5",fontSize:12,fontFamily:"monospace",color:C.ink,boxSizing:"border-box"}} />
+        <div style={{fontSize:11.5,color:C.mut,marginTop:8}}>If Copy doesn't work, long-press inside the box → Select All → Copy.</div>
+      </div>
+    </div>
+  );
+}
+
+function PlanTab({setShowExport}){
+  const routine=[["Glute bridge → hip thrust","3 × 10–15","Squeeze hard at top, exhale up"],["Banded clamshells","2 × 12/side","Knees apart, hips still"],["Banded lateral walks","2 × 10/way","Stay low, push out to the side"],["Step-ups","2 × 8/side","Drive through the heel"],["Romanian deadlift","2 × 8–10","Push butt back, soft knees"],["Chair sit-to-stands","2 × 8–12","Sit back, heels down, exhale up"],["Wall / counter push-ups","2 × 6–12","Straight line, control down"],["Band rows","2 × 10–12","Elbows back, squeeze blades"],["Band curls","2 × 10–12","Slow, no swinging"]];
+  return (
+    <div>
+      <Header kicker="Glute-biased full body · 3×/week" title="The Plan" />
+      <div style={{padding:"4px 16px 0"}}>
+        <Card style={{background:C.flag,border:"none"}}>
+          <div style={{fontSize:13,fontWeight:800,color:C.flagTxt,marginBottom:6}}>⚠ Core / pelvic floor — on hold</div>
+          <div style={{fontSize:12.5,color:C.flagTxt,lineHeight:1.5}}>No crunches, planks, or Kegels until your pelvic-floor PT assessment. Meanwhile, exhale on the effort of every lift and never bear down. First call: Center for Physical Rehab, 229-333-0095.</div>
+        </Card>
+      </div>
+      <div style={{padding:"16px 16px 0"}}>
+        <div style={{fontSize:13,fontWeight:700,color:C.mut,marginBottom:8}}>EVERY SESSION — GLUTES FIRST</div>
+        <Card style={{padding:0}}>
+          {routine.map((r,i)=>(<div key={r[0]} style={{padding:"13px 14px",borderTop:i?`1px solid ${C.line}`:"none"}}><div style={{display:"flex",alignItems:"center"}}><div style={{flex:1,fontSize:15,fontWeight:600}}>{r[0]}</div><div style={{fontSize:13,color:C.clay,fontWeight:700}}>{r[1]}</div></div><div style={{fontSize:12,color:C.mut,marginTop:2}}>{r[2]}</div></div>))}
+        </Card>
+        <div style={{fontSize:12,color:C.mut,padding:"10px 4px 0"}}>Warm up: 15 glute squeezes + a set of bridges. Add reps before resistance; bands → kettlebell.</div>
+      </div>
+      <div style={{padding:"18px 16px 0"}}>
+        <div style={{fontSize:13,fontWeight:700,color:C.mut,marginBottom:8}}>DAILY ANCHORS</div>
+        <Card>
+          {["Protein at every intake — aim 130g/day. A shake covers a third in one go.","Walk when you can — stroller walks count. Apple Health tracks them automatically.","Easing toward maintenance protects the muscle you're building."].map((t,i)=>(<div key={i} style={{display:"flex",gap:10,marginBottom:i<2?10:0}}><span style={{color:C.clay,flexShrink:0,marginTop:2}}><Icon.Chevron size={16} /></span><div style={{fontSize:13.5,lineHeight:1.5}}>{t}</div></div>))}
+        </Card>
+      </div>
+      <div style={{padding:"18px 16px 0"}}>
+        <div style={{fontSize:13,fontWeight:700,color:C.mut,marginBottom:8}}>BACKUP</div>
+        <Card>
+          <div style={{fontSize:13.5,lineHeight:1.5,marginBottom:12}}>Export your logs to paste into your Google Sheet — a 20-second monthly habit that keeps a permanent copy.</div>
+          <Btn onClick={()=>setShowExport(true)}>Back up to Google Sheet</Btn>
+        </Card>
+      </div>
+      <div style={{padding:"18px 16px 28px"}}><div style={{fontSize:12,color:C.mut,lineHeight:1.5,textAlign:"center"}}>You went from 265 to here. This is the part where it starts taking shape.</div></div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
